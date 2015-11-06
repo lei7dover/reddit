@@ -1,0 +1,21 @@
+<div class = "container">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @link.title %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= link_to @link.url %>
+</p>
+
+<p>
+  <strong>Summary:</strong>
+  <%= @link.summary %>
+</p>
+
+<%= link_to 'Edit', edit_link_path(@link) %> |
+<%= link_to 'Back', links_path %>
+</div>
