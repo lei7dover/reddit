@@ -1,7 +1,7 @@
 <div class = "container">
 <p id="notice"><%= notice %></p>
 
-<h1>List of Links</h1>
+<h1>Reddit</h1>
 
 <table class="table">
   <thead>
@@ -29,6 +29,13 @@
 </table>
 
 <br>
+<div class = "row">
+  <div class = "col-xs-4 pull-right">
+    <%= link_to '<span class="glyphicon glyphicon-plus"> New Link </span>'.html_safe, new_link_path %>
+  </div>
+  <div class = "col-xs-4 pull-right">
+    <%= link_to '<span class="glyphicon glyphicon-user"> New User </span>'.html_safe , new_user_path %>
+  </div>
+</div>
 
-<%= link_to 'New Link', new_link_path %>
 </div>

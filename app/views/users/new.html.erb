@@ -1,5 +1,12 @@
+<div class = "container">
 <h1>New User</h1>
 
-<%= render 'form' %>
+<%= render 'form' %><br>
 
-<%= link_to 'Back', users_path %>
+<div class = "col-xs-1 col-xs-offset-2">
+<%= link_to '<span class="glyphicon glyphicon-home">Home</span>'.html_safe, links_path %>
+</div>
+<div class = "col-xs-1 pull-left">
+<%= link_to '<span class="glyphicon glyphicon-triangle-left">Back</span>'.html_safe, users_path %>
+</div>
+</div>

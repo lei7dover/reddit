@@ -22,8 +22,21 @@
   <div class="field">
     <%= f.label :summary %><br>
     <%= f.text_field :summary %>
+  </div><br>
+
+  <div class= "field">
+    <%= f.label :name %><br>
+    <%=select("link", "user_id", User.all.collect {|p| [ p.name, p.id ] }, {prompt: 'Select User'})%><br>
   </div>
-  <div class="actions">
+
+  <div class= "action">
+    <%= link_to "Create a New User", new_user_path %>
+  </div><br>
+
+  <div class="action">
     <%= f.submit %>
-  </div>
+  </div><br>
+
+
+
 <% end %>

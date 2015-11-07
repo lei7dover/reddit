@@ -3,5 +3,11 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Back', links_path %>
+<div class = "col-xs-1 col-xs-offset-2">
+<%= link_to '<span class="glyphicon glyphicon-home">Home</span>'.html_safe, links_path %>
+</div>
+<div class = "col-xs-1 pull-left">
+<%= link_to '<span class="glyphicon glyphicon-triangle-left">Back</span>'.html_safe, links_path %>
+</div>
+
 </div>
