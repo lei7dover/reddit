@@ -26,7 +26,10 @@ class LinksController < ApplicationController
   # POST /links.json
   def create
     @link = Link.new(link_params)
-
+    if Link.exists?(:url => params[:link][:url])
+      Link.where(url: params[:link][:url]).first.votes.create
+      redirect_to(links_path)
+    else
     respond_to do |format|
       if @link.save
         format.html { redirect_to links_path, notice: 'Link was successfully created.' }
@@ -37,10 +40,15 @@ class LinksController < ApplicationController
       end
     end
   end
+  end
 
   # PATCH/PUT /links/1
   # PATCH/PUT /links/1.json
   def update
+    if Link.exists?(:url => params[:link][:url])
+      Link.where(url: params[:link][:url]).first.votes.create
+      redirect_to(links_path)
+    else
     respond_to do |format|
       if @link.update(link_params)
         format.html { redirect_to links_path, notice: 'Link was successfully updated.' }
@@ -50,6 +58,7 @@ class LinksController < ApplicationController
         format.json { render json: @link.errors, status: :unprocessable_entity }
       end
     end
+  end
   end
 
   # DELETE /links/1
