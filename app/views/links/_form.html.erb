@@ -1,4 +1,4 @@
-<%= form_for([@link.subreddit, @link]) do |f| %>
+<%= bootstrap_form_for([@link.subreddit, @link]) do |f| %>
   <% if @link.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@link.errors.count, "error") %> prohibited this link from being saved:</h2>
@@ -12,33 +12,29 @@
   <% end %>
 
   <div class = "control-group">
-    <%= f.label :subreddit, :class => "control-label" %>
     <%= f.select(:subreddit_id, options_for_select(Subreddit.all.collect{|p| [p.category, p.id]}), {:prompt => "Select One"}) %>
   </div>
 
   <div class="control-group">
-    <%= f.label :title %><br>
     <%= f.text_field :title,:size => 40, :placeholder => "Give your Link a title... "%>
   </div>
   <div class="control-group">
-    <%= f.label :url %><br>
     <%= f.text_field :url, :size => 40, :placeholder => "Type website Url here..." %>
   </div>
   <div class="control-group">
-    <%= f.label :summary %><br>
     <%= f.text_area :summary, :size => "40x10", :placeholder => "Give a brief summary of your link" %>
   </div><br>
 
-  <div class= "control-group">
+  <div class="control-group">
     <%= f.label :user %><br>
-    <%=select("link", "user_id", User.all.collect {|p| [ p.name, p.id ] }, {prompt: 'Select User'})%><br>
-  </div>
+    <%= select("link", "user_id", User.all.collect {|p| [ p.name, p.id ] }, {prompt: 'Select User'})%>
+  </div><br>
 
-  <div class= "action">
+  <div class="btn btn-default">
     <%= link_to "Create a New User", new_user_path %>
   </div><br>
 
-  <div class="action">
+  <div class="btn">
     <%= f.submit %>
   </div><br>
 
