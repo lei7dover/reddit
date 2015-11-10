@@ -1,17 +1,18 @@
 Rails.application.routes.draw do
+  resources :subreddits do
+    resources :links
+    end
   resources :users
   resources :votes
-  resources :links do
-    member do
-      post 'upvote'
-      post 'downvote'
-    end
-  end
+  resources :links
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   root 'links#index'
+
+  post 'upvote/:id' => 'links#upvote', :as => :upvote_link
+  post 'downvote/:id' => 'links#downvote', :as => :downvote_link
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
