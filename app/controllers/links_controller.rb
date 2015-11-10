@@ -4,7 +4,11 @@ class LinksController < ApplicationController
   # GET /links
   # GET /links.json
   def index
-    @links = Link.all.sort_by{|link| link.votes.size}.reverse
+    if params[:category]
+      Link.where("category = ?", params[:category])
+    else
+      @links = Link.all.sort_by{|link| link.votes.size}.reverse
+    end
   end
 
   # GET /links/1
@@ -28,11 +32,11 @@ class LinksController < ApplicationController
     @link = Link.new(link_params)
     if Link.exists?(:url => params[:link][:url])
       Link.where(url: params[:link][:url]).first.votes.create
-      redirect_to(links_path)
+      redirect_to(subreddit_links_path)
     else
     respond_to do |format|
       if @link.save
-        format.html { redirect_to links_path, notice: 'Link was successfully created.' }
+        format.html { redirect_to subreddit_links_path, notice: 'Link was successfully created.' }
         format.json { render :show, status: :created, location: @link }
       else
         format.html { render :new }
@@ -47,11 +51,11 @@ class LinksController < ApplicationController
   def update
     if Link.exists?(:url => params[:link][:url])
       Link.where(url: params[:link][:url]).first.votes.create
-      redirect_to(links_path)
+      redirect_to(subreddit_links_path)
     else
     respond_to do |format|
       if @link.update(link_params)
-        format.html { redirect_to links_path, notice: 'Link was successfully updated.' }
+        format.html { redirect_to subreddit_links_path, notice: 'Link was successfully updated.' }
         format.json { render :show, status: :ok, location: @link }
       else
         format.html { render :edit }
@@ -75,7 +79,7 @@ class LinksController < ApplicationController
     @link = Link.find(params[:id])
     @link.votes.create
     if params[:upvote]
-      redirect_to(links_path)
+      redirect_to(root_url)
     else
       redirect_to @link.url
     end
@@ -87,7 +91,7 @@ class LinksController < ApplicationController
       @link.votes.first.destroy
     end
     if params[:downvote]
-      redirect_to(links_path)
+      redirect_to(root_url)
     else
       redirect_to @link.url
     end

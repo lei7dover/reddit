@@ -1,0 +1,9 @@
+<h1><%= @subreddit.nil? ? 'Subreddits' :subbredit.category%></h1>
+<table>
+  <% @subreddit.each do |s| %>
+  <tr>
+    <td><%= link_to subreddit.category, subreddit_path(subreddit) %></td>
+    <td><%= link_to 'Edit', edit_subreddit_path(subreddit) unless subreddit.parent.nil? %></td>
+  </tr>
+  <%end %>
+</table>
