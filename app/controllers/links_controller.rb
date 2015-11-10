@@ -5,7 +5,7 @@ class LinksController < ApplicationController
   # GET /links.json
   def index
     if params[:category]
-      Link.where("category = ?", params[:category])
+      Link.where("category = ?", params[@subreddit.links])
     else
       @links = Link.all.sort_by{|link| link.votes.size}.reverse
     end
