@@ -26,8 +26,7 @@
   </div><br>
 
   <div class="control-group">
-    <%= f.label :user %><br>
-    <%= select("link", "user_id", User.all.collect {|p| [ p.name, p.id ] }, {prompt: 'Select User'})%>
+    <%= f.select(:user_id, options_for_select(User.all.collect {|p| [ p.name, p.id ] }), {prompt: 'Select User'})%>
   </div><br>
 
   <div class="btn btn-default">
