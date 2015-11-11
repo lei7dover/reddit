@@ -23,8 +23,8 @@
         <td class = "text-center"><%= link_to '<span class="glyphicon glyphicon-arrow-up "></span>'.html_safe, upvote_link_path(link, :upvote => true), :method => "post" %></td>
         <td class = "text-center"><%= link_to '<span class="glyphicon glyphicon-arrow-down"></span>'.html_safe, downvote_link_path(link, :downvote => true), :method => "post" %></td>
         <td class= "text-center"><%= link_to link.title, upvote_link_path(link), :method => "post" %></td>
-        <td class= "text-center"><%= link_to '<span class="glyphicon glyphicon-pencil"></span>'.html_safe, edit_subreddit_link_path(link.subreddit, link) %></td>
-        <td class = "text-center"><%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, subreddit_link_path(link.subreddit, link), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class= "text-center"><%= link_to '<span class="glyphicon glyphicon-pencil"></span>'.html_safe, edit_link_path(link) %></td>
+        <td class = "text-center"><%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, link_path(link), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
