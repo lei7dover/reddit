@@ -28,7 +28,7 @@ class VotesController < ApplicationController
     @vote = Vote.new(link_id)
     respond_to do |format|
       if @vote.save
-        format.html { redirect_to votes_path, [:alert] 'Vote was successfully created.' }
+        format.html { redirect_to votes_path, [:alert]= 'Vote was successfully created.'}
         format.json { render :show, status: :created, location: @vote }
         redirect_to @link.url
       else
