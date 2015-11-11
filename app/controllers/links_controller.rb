@@ -5,7 +5,7 @@ class LinksController < ApplicationController
   # GET /links.json
   def index
     if params[:category]
-      Link.where("category = ?", params[:category])
+      Link.where("category = ?", params[@subreddit.links])
     else
       @links = Link.all.sort_by{|link| link.votes.size}.reverse
     end
@@ -34,9 +34,10 @@ class LinksController < ApplicationController
       Link.where(url: params[:link][:url]).first.votes.create
       redirect_to(subreddit_links_path)
     else
+      @link.user = @current_user
     respond_to do |format|
       if @link.save
-        format.html { redirect_to subreddit_links_path, notice: 'Link was successfully created.' }
+        format.html { redirect_to root_path, [:alert]=> 'Link was successfully created.' }
         format.json { render :show, status: :created, location: @link }
       else
         format.html { render :new }
@@ -51,11 +52,11 @@ class LinksController < ApplicationController
   def update
     if Link.exists?(:url => params[:link][:url])
       Link.where(url: params[:link][:url]).first.votes.create
-      redirect_to(subreddit_links_path)
+      redirect_to(root_path)
     else
     respond_to do |format|
       if @link.update(link_params)
-        format.html { redirect_to subreddit_links_path, notice: 'Link was successfully updated.' }
+        format.html { redirect_to root_path, [:alert] => 'Link was successfully updated.' }
         format.json { render :show, status: :ok, location: @link }
       else
         format.html { render :edit }
@@ -70,7 +71,7 @@ class LinksController < ApplicationController
   def destroy
     @link.destroy
     respond_to do |format|
-      format.html { redirect_to links_url, notice: 'Link was successfully destroyed.' }
+      format.html { redirect_to links_url, [:alert]=> 'Link was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -101,10 +102,14 @@ class LinksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_link
       @link = Link.find(params[:id])
+      unless @link.user == @current_user
+        flash[:danger] = "You are not the owner of this link."
+        redirect_to root_url
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def link_params
       params.require(:link).permit(:title, :url, :summary, :user_id)
     end
+  end
 end

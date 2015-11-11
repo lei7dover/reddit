@@ -17,12 +17,20 @@
     <%= f.text_field :name, :size => 40, :placeholder => "Your Name" %>
   </div>
   <div class="field">
+    <%= f.label :email %><br>
+    <%= f.email_field :email, :size => 40, :placeholder => "Email Address"%>
+  </div>
+  <div class="field">
     <%= f.label :username %><br>
     <%= f.text_field :username, :size => 40, :placeholder => "Create Username"%>
   </div>
   <div class="field">
     <%= f.label :password %><br>
-    <%= f.text_field :password, :size => 40, :placeholder=> "Create Password" %>
+    <%= f.password_field :password, :size => 40, :placeholder=> "Create Password" %>
+  </div><br>
+  <div class="field">
+    <%= f.label :password_confirmation %><br>
+    <%= f.password_field :password_confirmation, :size => 40, :placeholder=> "Confirm Password" %>
   </div><br>
   <div class="actions">
     <%= f.submit %>
