@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
   resources :subreddits do
-    resources :links
+    resources :links 
     end
   resources :users
   resources :votes
-  resources :links
+  resources :links do
+    resources :comments
+  end
+  resources :comments
   resources :user_sessions
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -15,6 +18,7 @@ Rails.application.routes.draw do
   post 'upvote/:id' => 'links#upvote', :as => :upvote_link
   post 'downvote/:id' => 'links#downvote', :as => :downvote_link
 
+  get '/tags/:tag' => 'links#index', :as => :tag
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
