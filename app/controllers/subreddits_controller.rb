@@ -75,5 +75,3 @@ class SubredditsController < ApplicationController
       params.require(:subreddit).permit(:category)
     end
 end
-
-end

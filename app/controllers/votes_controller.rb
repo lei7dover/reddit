@@ -1,6 +1,6 @@
 class VotesController < ApplicationController
   before_action :set_vote, only: [:show, :edit, :update, :destroy]
-
+  before_action :require_user, only: [:new,:create, :destroy, :update]
   # GET /votes
   # GET /votes.json
   def index
@@ -28,7 +28,7 @@ class VotesController < ApplicationController
     @vote = Vote.new(link_id)
     respond_to do |format|
       if @vote.save
-        format.html { redirect_to votes_path, [:alert] 'Vote was successfully created.' }
+        format.html { redirect_to votes_path, notice: 'Vote was successfully created.'}
         format.json { render :show, status: :created, location: @vote }
         redirect_to @link.url
       else

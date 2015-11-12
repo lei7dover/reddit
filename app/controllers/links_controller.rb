@@ -1,14 +1,18 @@
 class LinksController < ApplicationController
   before_action :set_link, only: [:show, :edit, :update, :destroy]
+  before_action :require_user, only: [:new,:create, :update, :destroy,:upvote, :downvote]
 
   # GET /links
   # GET /links.json
   def index
-    if params[:category]
-      Link.where("category = ?", params[@subreddit.links])
-    else
-      @links = Link.all.sort_by{|link| link.votes.size}.reverse
-    end
+    if params[:tag]
+      @tag= Tag.find_by_name(params[:tag])
+      @links = @tag.links.sort_by{|link| link.votes.size}.reverse
+    elsif params[:category]
+        Link.where("category = ?", params[@subreddit.links])
+      else
+        @links = Link.all.sort_by{|link| link.votes.size}.reverse
+      end
   end
 
   # GET /links/1
@@ -105,11 +109,11 @@ class LinksController < ApplicationController
       unless @link.user == @current_user
         flash[:danger] = "You are not the owner of this link."
         redirect_to root_url
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def link_params
-      params.require(:link).permit(:title, :url, :summary, :user_id)
+      params.require(:link).permit(:title, :url, :summary, :user_id, :tag_names, :subreddit_id)
     end
-  end
 end

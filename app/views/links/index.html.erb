@@ -10,7 +10,9 @@
       <th class= "text-center">Add Vote</th>
       <th class= "text-center">Delete Vote</th>
       <th class= "text-center">Title</th>
+      <th class= "text-center">Info</th>
       <th class= "text-center">Modify</th>
+      <th class= "text-center">Tags</th>
       <th class= "text-center">Delete</th>
 
     </tr>
@@ -23,21 +25,31 @@
         <td class = "text-center"><%= link_to '<span class="glyphicon glyphicon-arrow-up "></span>'.html_safe, upvote_link_path(link, :upvote => true), :method => "post" %></td>
         <td class = "text-center"><%= link_to '<span class="glyphicon glyphicon-arrow-down"></span>'.html_safe, downvote_link_path(link, :downvote => true), :method => "post" %></td>
         <td class= "text-center"><%= link_to link.title, upvote_link_path(link), :method => "post" %></td>
+        <td class= "text-center"><%= link_to 'Show', link %></td>
+        <% if current_user == link.user %>
         <td class= "text-center"><%= link_to '<span class="glyphicon glyphicon-pencil"></span>'.html_safe, edit_link_path(link) %></td>
+        <% else %>
+        <td class= "text-center"><span class="glyphicon glyphicon-pencil"></span></td>
+        <% end %>
+        <% if link.tags.any?%>
+          <td class= "text-center"> Tags: <%=link.tags.collect{|t| link_to t.name, tag_path(t.name)}.join(", ").html_safe %></td>
+          <% else %>
+          <td class= "text-center"> Tags: none</td>
+        <% end %>
+        <% if current_user == link.user %>
         <td class = "text-center"><%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, link_path(link), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% else %>
+        <td class = "text-center"><span class="glyphicon glyphicon-trash"></span></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 </div>
 <br>
-<div class = "row">
-  <div class = "col-xs-4 pull-right">
-    <%= link_to '<span class="glyphicon glyphicon-plus"> New Link </span>'.html_safe, new_link_path %>
+  <div class = "row">
+    <div class = "col-xs-12">
+      <%= link_to '<span class="glyphicon glyphicon-plus"> New Link </span>'.html_safe, new_link_path %>
+    </div>
   </div>
-  <div class = "col-xs-4 pull-right">
-    <%= link_to '<span class="glyphicon glyphicon-user"> New User </span>'.html_safe , new_user_path %>
-  </div>
-</div>
-
 </div>

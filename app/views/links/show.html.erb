@@ -16,6 +16,12 @@
   <%= @link.summary %>
 </p>
 
-<%= link_to 'Edit', edit_subreddit_link_path(link.subreddit, link) %> |
-<%= link_to 'Back', subreddit_links_path %>
+<p>
+  
+  <%= render '/comments/form' %>
+
+</p>
+
+
+<%= link_to 'Back', root_path %>
 </div>
